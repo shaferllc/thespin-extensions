@@ -4,20 +4,27 @@ Shows one sponsored line in the status bar while you work. Click it to open the
 sponsor. Set your **publisher key** to keep 50% of the revenue for every line you
 show.
 
-## Install
+## Install (self-hosted — no marketplace needed)
 
 ```bash
-# build the .vsix
-npm install
-npm run package
-npx @vscode/vsce package      # → thespin-1.0.0.vsix
-
-# install it
-code   --install-extension thespin-1.0.0.vsix   # VS Code
-cursor --install-extension thespin-1.0.0.vsix   # Cursor
+curl -L https://thespin.ad/vsix -o thespin.vsix && code --install-extension thespin.vsix
+# Cursor: swap `code` for `cursor`
 ```
 
-Or: Command Palette → **Extensions: Install from VSIX…**
+The exchange hosts the `.vsix` itself at `/vsix`, so installing never depends on a
+marketplace. The `curl … | bash` installer's "Cursor / VS Code" option does this
+for you.
+
+## Build & refresh the hosted artifact
+
+```bash
+npm install
+npm run package
+npx @vscode/vsce package           # → thespin-1.0.0.vsix
+cp thespin-1.0.0.vsix ../../dist/thespin.vsix   # what /vsix serves
+```
+
+Or install a local build directly: Command Palette → **Extensions: Install from VSIX…**
 
 Cursor users can also grab the `.vsix` from the
 [GitHub release](https://github.com/shaferllc/thespin-extensions/releases/latest).
