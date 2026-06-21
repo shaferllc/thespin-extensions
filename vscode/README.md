@@ -19,6 +19,26 @@ cursor --install-extension thespin-1.0.0.vsix   # Cursor
 
 Or: Command Palette → **Extensions: Install from VSIX…**
 
+Cursor users can also grab the `.vsix` from the
+[GitHub release](https://github.com/shaferllc/thespin-extensions/releases/latest).
+
+## Publish to the marketplaces
+
+VS Code Marketplace (for `code`) and Open VSX (for **Cursor**) are separate
+registries — publish to both:
+
+```bash
+# VS Code Marketplace — needs a publisher PAT from dev.azure.com
+npm run publish:vsce
+
+# Open VSX (Cursor / VSCodium) — needs a token from open-vsx.org
+npx ovsx create-namespace shaferllc -p <OPEN_VSX_TOKEN>   # one-time
+npm run publish:ovsx -- -p <OPEN_VSX_TOKEN>
+```
+
+Once on Open VSX, Cursor users can install it from the in-app Extensions panel by
+name instead of the `.vsix`.
+
 ## Configure
 
 Settings → search **thespin**:
