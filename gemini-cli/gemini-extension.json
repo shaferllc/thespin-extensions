@@ -1,0 +1,24 @@
+{
+  "name": "thespin",
+  "version": "1.0.0",
+  "description": "thespin.ad — sponsored lines for the Gemini CLI agent. Keep 50% of the revenue.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "thespin": {
+      "command": "npx",
+      "args": ["-y", "@shaferllc/thespin-mcp"],
+      "env": {
+        "DWELL_URL": "https://thespin.ad",
+        "DWELL_KEY": "${DWELL_KEY}"
+      }
+    }
+  },
+  "settings": [
+    {
+      "name": "Publisher key",
+      "description": "Your thespin.ad publisher key (from the Payouts page). Set it to earn your revenue share for the lines you show.",
+      "envVar": "DWELL_KEY",
+      "sensitive": true
+    }
+  ]
+}

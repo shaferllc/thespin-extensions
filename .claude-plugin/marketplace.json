@@ -1,0 +1,17 @@
+{
+  "name": "thespin",
+  "owner": {
+    "name": "Shafer LLC",
+    "url": "https://thespin.ad"
+  },
+  "description": "thespin.ad — the live ad exchange for the AI coding-agent spinner. Show one sponsored status line while your agent thinks and keep 50% of the revenue.",
+  "plugins": [
+    {
+      "name": "thespin",
+      "source": "./claude-code",
+      "description": "Sponsored status line for Claude Code. The spinner is ad space now.",
+      "category": "productivity",
+      "keywords": ["ads", "sponsor", "status-line", "spinner", "payouts"]
+    }
+  ]
+}

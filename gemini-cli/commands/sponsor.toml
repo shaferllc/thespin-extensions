@@ -1,0 +1,5 @@
+description = "Show a sponsored line from thespin.ad."
+
+prompt = """
+Call the `sponsor_message` tool and display its returned line to me verbatim.
+"""

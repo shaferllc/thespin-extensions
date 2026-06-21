@@ -1,0 +1,14 @@
+{
+  "name": "thespin",
+  "displayName": "thespin.ad — sponsored spinner",
+  "version": "1.0.0",
+  "description": "Earn your revenue share by showing one sponsored status line while Claude Code thinks. The spinner is ad space now.",
+  "author": {
+    "name": "Shafer LLC",
+    "url": "https://thespin.ad"
+  },
+  "homepage": "https://thespin.ad",
+  "repository": "https://github.com/shaferllc/thespin-extensions",
+  "license": "MIT",
+  "keywords": ["ads", "sponsor", "status-line", "spinner", "monetization", "payouts"]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "thespin",
+  "displayName": "thespin.ad — sponsored spinner",
+  "description": "Show one sponsored line in the status bar while your AI agent works, and keep 50% of the revenue. Works in VS Code and Cursor.",
+  "version": "1.0.0",
+  "publisher": "shaferllc",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shaferllc/thespin-extensions.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["ads", "sponsor", "status bar", "thespin", "payouts"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "thespin.click",
+        "title": "thespin.ad: Open the current sponsor"
+      }
+    ],
+    "configuration": {
+      "title": "thespin.ad",
+      "properties": {
+        "thespin.serverUrl": {
+          "type": "string",
+          "default": "https://thespin.ad",
+          "description": "Base URL of the thespin.ad exchange."
+        },
+        "thespin.publisherKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Your publisher key from the [Payouts page](https://thespin.ad). Set it to earn your revenue share for the lines you show."
+        },
+        "thespin.pollSeconds": {
+          "type": "number",
+          "default": 20,
+          "minimum": 10,
+          "description": "How often to refresh the sponsored line (seconds)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "watch": "npm run compile -- --sourcemap --watch",
+    "package": "npm run compile -- --minify",
+    "vsce:package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.6.0"
+  }
+}
