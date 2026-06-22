@@ -54,11 +54,12 @@ if [ -n "$THESPIN_KEY" ] && command -v jq >/dev/null 2>&1; then
 fi
 
 # Parse with jq when available, else fall back to python3 (ships with macOS).
-premium=""
+premium=""; click=""
 if command -v jq >/dev/null 2>&1; then
   line="$(printf '%s' "$resp"  | jq -r '.ad.line        // ""')"
   price="$(printf '%s' "$resp" | jq -r '.ad.price_per_1k // ""')"
   premium="$(printf '%s' "$resp" | jq -r 'if .ad.premium then "1" else "" end')"
+  click="$(printf '%s' "$resp" | jq -r '.ad.click_url // ""')"
 elif command -v python3 >/dev/null 2>&1; then
   read -r line price premium < <(printf '%s' "$resp" | python3 -c '
 import sys, json
@@ -82,6 +83,16 @@ else
   mark="${LIME}◆${RESET}"
 fi
 
+# Wrap the line in an OSC 8 hyperlink so terminals that support it make the ad
+# clickable — and the click goes through our tracked URL, so it earns. Terminals
+# without OSC 8 simply ignore the escape.
+osc_open=""; osc_close=""
+if [ -n "${click:-}" ]; then
+  esc=$'\033'
+  osc_open="${esc}]8;;${click}${esc}\\"
+  osc_close="${esc}]8;;${esc}\\"
+fi
+
 # e.g.  ★ Ramp · save time and money            $25.00/1k  [ad]
-printf '%s %s%s%s  %s%s%s %s[ad]%s' \
-  "$mark" "$LIME" "$line" "$RESET" "$AMBER" "${price}/1k" "$RESET" "$DIM" "$RESET"
+printf '%s%s %s%s%s  %s%s%s %s[ad]%s%s' \
+  "$osc_open" "$mark" "$LIME" "$line" "$RESET" "$AMBER" "${price}/1k" "$RESET" "$DIM" "$RESET" "$osc_close"
