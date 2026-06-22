@@ -18,7 +18,7 @@ const THESPIN_KEY = process.env.THESPIN_KEY || "";
 
 /** Fetch the current ad from the serve API (counts one impression). */
 async function currentAd() {
-  const headers = THESPIN_KEY ? { "X-Dwell-Key": THESPIN_KEY } : {};
+  const headers = THESPIN_KEY ? { "X-Thespin-Key": THESPIN_KEY } : {};
   const res = await fetch(`${THESPIN_URL}/api/serve`, { headers });
   if (!res.ok) throw new Error(`serve responded ${res.status}`);
   const data = await res.json();

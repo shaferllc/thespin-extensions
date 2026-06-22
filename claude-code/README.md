@@ -21,7 +21,7 @@ Add your publisher key (from the [Payouts page](https://thespin.ad)) to
 ```json
 {
   "env": {
-    "THESPIN_KEY": "dwk_your_key_here"
+    "THESPIN_KEY": "tsk_your_key_here"
   }
 }
 ```
@@ -35,4 +35,4 @@ line stays silent if the exchange is unreachable, so it never breaks your prompt
 ◆ Ramp · save time and money            $25.00/1k  [ad]
 ```
 
-Each refresh calls `GET /api/serve` with `X-Dwell-Key`, recording one impression.
+Each refresh calls `GET /api/serve` with `X-Thespin-Key`, recording one impression.

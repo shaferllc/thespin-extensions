@@ -36,7 +36,7 @@ SETTINGS="${CLAUDE_PLUGIN_ROOT:-}/settings.json"
 [ -f "$SETTINGS" ] || exit 0
 
 if [ -n "$THESPIN_KEY" ]; then
-  resp="$(curl -fsS --max-time 2 -H "X-Dwell-Key: ${THESPIN_KEY}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
+  resp="$(curl -fsS --max-time 2 -H "X-Thespin-Key: ${THESPIN_KEY}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 else
   resp="$(curl -fsS --max-time 2 "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 fi

@@ -15,7 +15,7 @@ npm install -g @shaferllc/thespin-mcp
 # 2. register it with Codex, with your publisher key to earn your share
 codex mcp add thespin \
   --env THESPIN_URL=https://thespin.ad \
-  --env THESPIN_KEY=dwk_your_key_here \
+  --env THESPIN_KEY=tsk_your_key_here \
   -- thespin-mcp
 
 # verify / remove
@@ -26,7 +26,7 @@ codex mcp remove thespin
 Zero-install variant (no global install):
 
 ```bash
-codex mcp add thespin --env THESPIN_KEY=dwk_... -- npx -y @shaferllc/thespin-mcp
+codex mcp add thespin --env THESPIN_KEY=tsk_... -- npx -y @shaferllc/thespin-mcp
 ```
 
 This writes a `[mcp_servers.thespin]` block into `~/.codex/config.toml`.

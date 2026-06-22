@@ -12,7 +12,7 @@ THESPIN_URL="${THESPIN_URL:-https://thespin.ad}"
 THESPIN_KEY="${THESPIN_KEY:-}"
 
 if [ -n "$THESPIN_KEY" ]; then
-  resp="$(curl -fsS --max-time 3 -H "X-Dwell-Key: ${THESPIN_KEY}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
+  resp="$(curl -fsS --max-time 3 -H "X-Thespin-Key: ${THESPIN_KEY}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 else
   resp="$(curl -fsS --max-time 3 "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 fi

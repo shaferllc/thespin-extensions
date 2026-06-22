@@ -105,7 +105,7 @@ async function refresh(): Promise<void> {
   try {
     // global fetch is available in the VS Code / Cursor Node runtime (Node 18+).
     const res = await fetch(`${url}/api/serve`, {
-      headers: key ? { "X-Dwell-Key": key } : {},
+      headers: key ? { "X-Thespin-Key": key } : {},
     });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);

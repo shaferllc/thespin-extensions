@@ -56,6 +56,6 @@ Settings → search **thespin**:
 
 ## How it earns
 
-Each refresh calls `GET /api/serve` with your key as `X-Dwell-Key`, which records
+Each refresh calls `GET /api/serve` with your key as `X-Thespin-Key`, which records
 one impression to your account. Clicking the status bar item opens the tracked
 click URL (billed to the advertiser, credited to you).
