@@ -29,6 +29,12 @@ export function activate(context: vscode.ExtensionContext): void {
   });
   context.subscriptions.push(clickCommand);
 
+  // Walkthrough "Add your publisher key" step jumps straight to the setting.
+  const setupKeyCommand = vscode.commands.registerCommand("thespin.setupKey", () => {
+    void vscode.commands.executeCommand("workbench.action.openSettings", "thespin.publisherKey");
+  });
+  context.subscriptions.push(setupKeyCommand);
+
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBarItem.command = "thespin.click";
   statusBarItem.text = "$(megaphone) thespin";

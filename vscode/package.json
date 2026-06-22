@@ -22,6 +22,38 @@
       {
         "command": "thespin.click",
         "title": "thespin.ad: Open the current sponsor"
+      },
+      {
+        "command": "thespin.setupKey",
+        "title": "thespin.ad: Add your publisher key"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "thespin.gettingStarted",
+        "title": "Earn from your status bar with thespin.ad",
+        "description": "Show one sponsored line while your AI agent works, and keep 50% of the revenue.",
+        "steps": [
+          {
+            "id": "thespin.welcome",
+            "title": "The spinner is ad space now",
+            "description": "thespin.ad shows a single sponsored line in your status bar while VS Code or Cursor works.\n\nYou keep **50%** of every impression and click it earns.",
+            "media": { "markdown": "walkthrough/welcome.md" }
+          },
+          {
+            "id": "thespin.key",
+            "title": "Add your publisher key to earn",
+            "description": "Without a key the line still shows — it just earns nothing. Paste your key from the [Payouts page](https://thespin.ad) to start your revenue share.\n\n[Add your publisher key](command:thespin.setupKey)",
+            "media": { "markdown": "walkthrough/key.md" },
+            "completionEvents": ["onSettingChanged:thespin.publisherKey", "onCommand:thespin.setupKey"]
+          },
+          {
+            "id": "thespin.live",
+            "title": "Watch it in the status bar",
+            "description": "Look bottom-right: the $(megaphone) item is the live sponsored line. The current top bid is marked with a ★ and a highlighted background.\n\nClick it to open the sponsor — that's a tracked click you earn on.",
+            "media": { "markdown": "walkthrough/live.md" }
+          }
+        ]
       }
     ],
     "configuration": {

@@ -54,9 +54,9 @@ else
   printf '%s' "${DIM}◆ thespin (install jq for ads)${RESET}"
   exit 0
 fi
-THESPIN
+
 if [ -z "${line:-}" ]; then
-  printf '%s' "${DIM}◆ thespin · spinner unclaimed — bid at ${DWELL_URL}${RESET}"
+  printf '%s' "${DIM}◆ thespin · spinner unclaimed — bid at ${THESPIN_URL}${RESET}"
   exit 0
 fi
 
