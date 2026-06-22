@@ -20,6 +20,14 @@ set -euo pipefail
 # Drain the SessionStart JSON on stdin (we don't need it).
 cat >/dev/null 2>&1 || true
 
+# Opt-in. This refresh hits /api/serve, counting one impression per session start
+# on top of the status line's. Off unless THESPIN_SPINNER_VERBS is truthy; flip it
+# to "1" in the plugin's settings.json "env" (or your own settings) to enable.
+case "${THESPIN_SPINNER_VERBS:-}" in
+  1 | true | on | yes) ;;
+  *) exit 0 ;;
+esac
+
 THESPIN_URL="${THESPIN_URL:-https://thespin.ad}"
 THESPIN_KEY="${THESPIN_KEY:-}"
 SETTINGS="${CLAUDE_PLUGIN_ROOT:-}/settings.json"

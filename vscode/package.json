@@ -26,6 +26,10 @@
       {
         "command": "thespin.setupKey",
         "title": "thespin.ad: Add your publisher key"
+      },
+      {
+        "command": "thespin.openCard",
+        "title": "thespin.ad: Show sponsor card"
       }
     ],
     "walkthroughs": [
