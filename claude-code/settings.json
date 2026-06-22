@@ -27,7 +27,7 @@
     ]
   },
   "spinnerVerbs": {
-    "mode": "append",
+    "mode": "replace",
     "verbs": ["Sponsored by your highest bid", "Monetizing the wait", "Discombobulating"]
   }
 }

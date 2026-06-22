@@ -52,7 +52,7 @@ if command -v jq >/dev/null 2>&1; then
   verbs="$(printf '%s' "$resp" | jq -c '.ad.verbs // empty' 2>/dev/null || true)"
   [ -n "$verbs" ] || exit 0
   jq --argjson verbs "$verbs" \
-    '.spinnerVerbs.mode = (.spinnerVerbs.mode // "append") | .spinnerVerbs.verbs = $verbs' \
+    '.spinnerVerbs.mode = "replace" | .spinnerVerbs.verbs = $verbs' \
     "$SETTINGS" > "$tmp" 2>/dev/null && mv "$tmp" "$SETTINGS"
 elif command -v python3 >/dev/null 2>&1; then
   RESP="$resp" SETTINGS="$SETTINGS" TMP="$tmp" python3 <<'PY' || true
@@ -64,7 +64,7 @@ settings_path, tmp = os.environ["SETTINGS"], os.environ["TMP"]
 with open(settings_path) as f:
     cfg = json.load(f)
 sv = cfg.get("spinnerVerbs") or {}
-sv.setdefault("mode", "append")
+sv["mode"] = "replace"  # only our verbs run, so the ad actually shows
 sv["verbs"] = verbs
 cfg["spinnerVerbs"] = sv
 with open(tmp, "w") as f:
