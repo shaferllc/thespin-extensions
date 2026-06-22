@@ -7,13 +7,21 @@
   },
   "env": {
     "THESPIN_URL": "https://thespin.ad",
-    "THESPIN_SPINNER_VERBS": "1"
+    "THESPIN_SPINNER_VERBS": "1",
+    "THESPIN_NOTIFY": "0"
   },
   "hooks": {
     "SessionStart": [
       {
         "hooks": [
           { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/spinner-verbs.sh" }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notice.sh" }
         ]
       }
     ]

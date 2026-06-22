@@ -38,3 +38,15 @@ Codex calls tools at its own discretion. To nudge it, add the snippet from
 `sponsor_message` at the start of each task and prints the returned line.
 
 Without your `THESPIN_KEY` the line still shows, but the impression earns nothing.
+
+## Desktop notification on turn-complete (optional)
+
+Codex has no in-TUI ad surface, but it can run a `notify` program when a turn
+finishes. [`notify.sh`](./notify.sh) shows a desktop notification with the
+current sponsored line at that "done" moment. Register it in `~/.codex/config.toml`:
+
+```toml
+notify = ["/absolute/path/to/notify.sh"]
+```
+
+Set `THESPIN_KEY` in your env to earn your share.
