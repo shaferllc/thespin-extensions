@@ -7,7 +7,7 @@
   },
   "env": {
     "THESPIN_URL": "https://thespin.ad",
-    "THESPIN_SPINNER_VERBS": "0"
+    "THESPIN_SPINNER_VERBS": "1"
   },
   "hooks": {
     "SessionStart": [
