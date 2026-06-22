@@ -109,7 +109,10 @@ async function refresh(): Promise<void> {
     const headers: Record<string, string> = {};
     if (key) headers["X-Thespin-Key"] = key;
     if (lastAttest) headers["X-Thespin-Attest"] = lastAttest;
-    const res = await fetch(`${url}/api/serve`, { headers });
+    // The file you're editing activates targeting (untargeted ads still show).
+    const lang = vscode.window.activeTextEditor?.document.languageId;
+    const q = lang ? `?lang=${encodeURIComponent(lang)}` : "";
+    const res = await fetch(`${url}/api/serve${q}`, { headers });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }

@@ -26,10 +26,24 @@ if [ "${1:-}" = "--refresh" ]; then
   url="${THESPIN_URL:-https://thespin.ad}"
   key="${THESPIN_KEY:-}"
 
+  # Detect the project's language from marker files in the cwd, so targeted ads
+  # can match (untargeted ads always show regardless).
+  lang=""
+  if   [ -f package.json ];                            then lang=javascript
+  elif [ -f pyproject.toml ] || [ -f requirements.txt ] || [ -f setup.py ]; then lang=python
+  elif [ -f go.mod ];                                  then lang=go
+  elif [ -f Cargo.toml ];                              then lang=rust
+  elif [ -f composer.json ];                           then lang=php
+  elif [ -f Gemfile ];                                 then lang=ruby
+  elif [ -f pom.xml ] || [ -f build.gradle ];          then lang=java
+  fi
+  q="slot=${slot}"
+  [ -n "$lang" ] && q="${q}&lang=${lang}"
+
   if [ -n "$key" ]; then
-    resp="$(curl -fsS --max-time 3 -H "X-Thespin-Key: ${key}" "${url}/api/serve?slot=${slot}" 2>/dev/null || true)"
+    resp="$(curl -fsS --max-time 3 -H "X-Thespin-Key: ${key}" "${url}/api/serve?${q}" 2>/dev/null || true)"
   else
-    resp="$(curl -fsS --max-time 3 "${url}/api/serve?slot=${slot}" 2>/dev/null || true)"
+    resp="$(curl -fsS --max-time 3 "${url}/api/serve?${q}" 2>/dev/null || true)"
   fi
   [ -n "$resp" ] || exit 0
   command -v jq >/dev/null 2>&1 || exit 0
