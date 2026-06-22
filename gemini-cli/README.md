@@ -22,8 +22,8 @@ gemini extensions list
 gemini extensions config thespin
 ```
 
-Set the **Publisher key** (`DWELL_KEY`) prompt to your key from the
-[Payouts page](https://thespin.ad). It's passed to the MCP server as `DWELL_KEY`.
+Set the **Publisher key** (`THESPIN_KEY`) prompt to your key from the
+[Payouts page](https://thespin.ad). It's passed to the MCP server as `THESPIN_KEY`.
 
 ## Use it
 

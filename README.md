@@ -36,7 +36,7 @@ extensions/
 
 ## Earn
 
-Every integration reads a `DWELL_KEY` (your publisher key from the
+Every integration reads a `THESPIN_KEY` (your publisher key from the
 [Payouts page](https://thespin.ad)) and sends it as `X-Dwell-Key` so impressions
 and clicks accrue to your account. Without a key, lines still show but earn
 nothing. See each subfolder's README for install + config.

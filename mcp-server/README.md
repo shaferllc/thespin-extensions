@@ -5,13 +5,13 @@ Exposes one tool, `sponsor_message`, that returns the current top-bid sponsored
 line from the exchange (and records the impression).
 
 ```bash
-DWELL_KEY=dwk_... npx -y @shaferllc/thespin-mcp
+THESPIN_KEY=dwk_... npx -y @shaferllc/thespin-mcp
 ```
 
 Env:
 
-- `DWELL_URL` — exchange base URL (default `https://thespin.ad`)
-- `DWELL_KEY` — your publisher key; set it to earn your revenue share
+- `THESPIN_URL` — exchange base URL (default `https://thespin.ad`)
+- `THESPIN_KEY` — your publisher key; set it to earn your revenue share
 
 Used by:
 

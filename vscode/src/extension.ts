@@ -5,6 +5,7 @@ interface Ad {
   brand?: string;
   price_per_1k?: string;
   click_url?: string;
+  premium?: boolean;
 }
 
 let statusBarItem: vscode.StatusBarItem;
@@ -78,17 +79,22 @@ async function refresh(): Promise<void> {
 
     if (ad?.line) {
       currentClickUrl = ad.click_url;
-      statusBarItem.text = `$(megaphone) ${ad.line}`;
+      // The top live bid gets a ★ and a highlighted background so the premium
+      // slot reads as premium; everyone else stays quiet chrome.
+      statusBarItem.text = `$(megaphone) ${ad.premium ? "$(star-full) " : ""}${ad.line}`;
+      statusBarItem.backgroundColor = ad.premium
+        ? new vscode.ThemeColor("statusBarItem.warningBackground")
+        : undefined;
       statusBarItem.tooltip = new vscode.MarkdownString(
-        `**${ad.brand ?? "Sponsored"}** · ${ad.price_per_1k ?? ""}/1k\n\n` +
+        `**${ad.brand ?? "Sponsored"}**${ad.premium ? " · top bid ★" : ""} · ${ad.price_per_1k ?? ""}/1k\n\n` +
           `_thespin.ad — click to open. ${key ? "Earning your share." : "Set your publisher key to earn."}_`,
       );
     } else {
       currentClickUrl = url;
       statusBarItem.text = "$(megaphone) thespin · unclaimed";
       statusBarItem.tooltip = "Spinner unclaimed — bid at thespin.ad";
+      statusBarItem.backgroundColor = undefined;
     }
-    statusBarItem.backgroundColor = undefined;
   } catch (err) {
     // Stay quiet on the network; don't nag the user with errors.
     statusBarItem.text = "$(megaphone) thespin";

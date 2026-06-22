@@ -6,7 +6,16 @@
     "padding": 1
   },
   "env": {
-    "DWELL_URL": "https://thespin.ad"
+    "THESPIN_URL": "https://thespin.ad"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/spinner-verbs.sh" }
+        ]
+      }
+    ]
   },
   "spinnerVerbs": {
     "mode": "append",

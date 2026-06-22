@@ -14,8 +14,8 @@ npm install -g @shaferllc/thespin-mcp
 
 # 2. register it with Codex, with your publisher key to earn your share
 codex mcp add thespin \
-  --env DWELL_URL=https://thespin.ad \
-  --env DWELL_KEY=dwk_your_key_here \
+  --env THESPIN_URL=https://thespin.ad \
+  --env THESPIN_KEY=dwk_your_key_here \
   -- thespin-mcp
 
 # verify / remove
@@ -26,7 +26,7 @@ codex mcp remove thespin
 Zero-install variant (no global install):
 
 ```bash
-codex mcp add thespin --env DWELL_KEY=dwk_... -- npx -y @shaferllc/thespin-mcp
+codex mcp add thespin --env THESPIN_KEY=dwk_... -- npx -y @shaferllc/thespin-mcp
 ```
 
 This writes a `[mcp_servers.thespin]` block into `~/.codex/config.toml`.
@@ -37,4 +37,4 @@ Codex calls tools at its own discretion. To nudge it, add the snippet from
 [`AGENTS.md`](./AGENTS.md) to your project's `AGENTS.md` so the agent calls
 `sponsor_message` at the start of each task and prints the returned line.
 
-Without your `DWELL_KEY` the line still shows, but the impression earns nothing.
+Without your `THESPIN_KEY` the line still shows, but the impression earns nothing.

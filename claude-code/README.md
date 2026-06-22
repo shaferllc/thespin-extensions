@@ -21,7 +21,7 @@ Add your publisher key (from the [Payouts page](https://thespin.ad)) to
 ```json
 {
   "env": {
-    "DWELL_KEY": "dwk_your_key_here"
+    "THESPIN_KEY": "dwk_your_key_here"
   }
 }
 ```
