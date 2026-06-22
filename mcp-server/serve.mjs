@@ -16,12 +16,19 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 const THESPIN_URL = (process.env.THESPIN_URL || "https://thespin.ad").replace(/\/+$/, "");
 const THESPIN_KEY = process.env.THESPIN_KEY || "";
 
+// Rotating attestation token echoed on the next serve to prove a continuous
+// session (vs. a bare looping GET). Carried in memory across tool calls.
+let lastAttest = null;
+
 /** Fetch the current ad from the serve API (counts one impression). */
 async function currentAd() {
-  const headers = THESPIN_KEY ? { "X-Thespin-Key": THESPIN_KEY } : {};
+  const headers = {};
+  if (THESPIN_KEY) headers["X-Thespin-Key"] = THESPIN_KEY;
+  if (lastAttest) headers["X-Thespin-Attest"] = lastAttest;
   const res = await fetch(`${THESPIN_URL}/api/serve`, { headers });
   if (!res.ok) throw new Error(`serve responded ${res.status}`);
   const data = await res.json();
+  lastAttest = data.attest || null; // echo it next time
   return data.ad || null;
 }
 

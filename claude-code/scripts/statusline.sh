@@ -25,9 +25,19 @@ THESPIN_KEY="${THESPIN_KEY:-}"
 # ANSI: lime mark + line, amber price, dim chrome. Claude renders these.
 DIM=$'\033[2m'; RESET=$'\033[0m'; LIME=$'\033[38;5;156m'; AMBER=$'\033[38;5;221m'
 
+# Attestation: echo the rotating token from our last serve so the server knows
+# this is a continuous session, not a bare looping GET. Stored per-user in tmp.
+# (Safe empty-array expansion below keeps this working on macOS's bash 3.2.)
+ATTEST_FILE="${TMPDIR:-/tmp}/thespin-attest-$(id -u 2>/dev/null || echo 0)"
+attest_args=()
+if [ -n "$THESPIN_KEY" ] && [ -f "$ATTEST_FILE" ]; then
+  prev_attest="$(cat "$ATTEST_FILE" 2>/dev/null || true)"
+  [ -n "$prev_attest" ] && attest_args=(-H "X-Thespin-Attest: ${prev_attest}")
+fi
+
 # Send the publisher key as a header so the server can attribute earnings.
 if [ -n "$THESPIN_KEY" ]; then
-  resp="$(curl -fsS --max-time 2 -H "X-Thespin-Key: ${THESPIN_KEY}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
+  resp="$(curl -fsS --max-time 2 -H "X-Thespin-Key: ${THESPIN_KEY}" "${attest_args[@]+"${attest_args[@]}"}" "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 else
   resp="$(curl -fsS --max-time 2 "${THESPIN_URL}/api/serve" 2>/dev/null || true)"
 fi
@@ -36,6 +46,11 @@ if [ -z "$resp" ]; then
   # API unreachable — stay quiet rather than break the status line.
   printf '%s' "${DIM}◆ thespin${RESET}"
   exit 0
+fi
+
+# Persist the fresh attestation token for the next refresh (best-effort, jq only).
+if [ -n "$THESPIN_KEY" ] && command -v jq >/dev/null 2>&1; then
+  printf '%s' "$resp" | jq -r '.attest // empty' >"$ATTEST_FILE" 2>/dev/null || true
 fi
 
 # Parse with jq when available, else fall back to python3 (ships with macOS).
@@ -62,9 +77,9 @@ fi
 
 # The top live bid gets a ★ and amber mark so the premium slot reads as premium.
 if [ -n "$premium" ]; then
-  mark="$AMBER★$RESET"
+  mark="${AMBER}★${RESET}"
 else
-  mark="$LIME◆$RESET"
+  mark="${LIME}◆${RESET}"
 fi
 
 # e.g.  ★ Ramp · save time and money            $25.00/1k  [ad]

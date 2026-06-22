@@ -13,6 +13,8 @@ let timer: NodeJS.Timeout | undefined;
 let currentClickUrl: string | undefined;
 let currentAd: Ad | undefined;
 let cardPanel: vscode.WebviewPanel | undefined;
+// Rotating attestation token echoed on the next serve to prove a real session.
+let lastAttest: string | undefined;
 
 function config() {
   const c = vscode.workspace.getConfiguration("thespin");
@@ -104,13 +106,15 @@ async function refresh(): Promise<void> {
   const { url, key } = config();
   try {
     // global fetch is available in the VS Code / Cursor Node runtime (Node 18+).
-    const res = await fetch(`${url}/api/serve`, {
-      headers: key ? { "X-Thespin-Key": key } : {},
-    });
+    const headers: Record<string, string> = {};
+    if (key) headers["X-Thespin-Key"] = key;
+    if (lastAttest) headers["X-Thespin-Attest"] = lastAttest;
+    const res = await fetch(`${url}/api/serve`, { headers });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
-    const data = (await res.json()) as { ad?: Ad | null };
+    const data = (await res.json()) as { ad?: Ad | null; attest?: string | null };
+    lastAttest = data.attest ?? undefined; // echo it next time
     const ad = data.ad;
     currentAd = ad ?? undefined;
 
